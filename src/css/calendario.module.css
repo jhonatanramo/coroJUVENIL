@@ -1,24 +1,28 @@
 :root {
-    --baby-blue: #96D1F1;
-    --delft-blue: #2A3A71;
-    --midnight-blue: #26266E;
-    --ultra-violet: #55588C;
-    --periwinkle: #BDBCE2;
-    --glaucous: #6587BF;
-    --delft-blue-2: #3C4371;
-
-    --gradient-main: linear-gradient(135deg, var(--baby-blue), var(--delft-blue), var(--midnight-blue));
-}
-
-* {
+    --baby-blue: #96d1f1;
+    --delft-blue: #2a3a71;
+    --midnight-blue: #26266e;
+    --ultra-violet: #55588c;
+    --periwinkle: #bdbce2;
+    --glaucous: #6587bf;
+    --gradient-main: linear-gradient(
+      135deg,
+      var(--baby-blue),
+      var(--delft-blue),
+      var(--midnight-blue)
+    );
+  }
+  
+  /* 🔤 Reset general */
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
-}
-
-/* 🌅 Fondo general */
-.Fondo {
+  }
+  
+  /* 🌅 Fondo general */
+  .Fondo {
     background-image: var(--gradient-main), url("../imagenes/descarga.jpeg");
     background-blend-mode: overlay;
     background-repeat: no-repeat;
@@ -29,30 +33,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* 🔲 Capa overlay */
-.overlay {
+  }
+  
+  /* 🔲 Capa oscura de superposición */
+  .overlay {
     background: rgba(0, 0, 0, 0.45);
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-/* 🧩 Contenedor central */
-.sub {
+  }
+  
+  /* 🧩 Contenedor central */
+  .sub {
     background: rgba(255, 255, 255, 0.95);
-    padding: 40px 50px;
+    backdrop-filter: blur(10px);
+    padding: 40px 30px;
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-    max-width: 420px;
-    width: 100vw;
-    animation: aparecer 1s ease-in-out;
-    backdrop-filter: blur(8px);
-}
+    max-width: 450px;
+    width: 90%;
+    animation: aparecer 0.8s ease-in-out;
+  }
+  
 
 /* 📄 Contenido principal */
 .sub h1 {
