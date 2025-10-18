@@ -1,5 +1,6 @@
 import React from "react";
-import { Template } from "./../coponentes/Template";
+import { Template } from "../coponentes/template";
+
 import Css from "./../css/Buscar.module.css";
 
 export function Buscar() {

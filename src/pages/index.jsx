@@ -1,5 +1,6 @@
 import Css from "../css/Index.module.css";
-import { Template } from "../coponentes/Template";
+import { Template } from "../coponentes/template";
+
 import { Popover } from "../coponentes/Popover";
 
 export function Index() {

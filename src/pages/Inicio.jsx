@@ -1,6 +1,6 @@
 import React from "react";
 import Css from './../css/Inicio.module.css';
-import {Template} from '../coponentes/Template';
+import { Template } from "../coponentes/template";
 
 export function Inicio() {
   return (
