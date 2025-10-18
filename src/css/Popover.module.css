@@ -1,0 +1,102 @@
+:root {
+    --baby-blue: #96d1f1;
+    --delft-blue: #2a3a71;
+    --midnight-blue: #26266e;
+    --ultra-violet: #55588c;
+    --periwinkle: #bdbce2;
+    --glaucous: #6587bf;
+    --gradient-main: linear-gradient(
+      135deg,
+      var(--baby-blue),
+      var(--delft-blue),
+      var(--midnight-blue)
+    );
+  }
+  
+  /* Fondo con el degradado */
+ 
+  
+  /* Botón principal */
+  .btnAbrir {
+    background-color:#6587bf;
+    color:#26266e;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background 0.3s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  .btnAbrir:hover {
+    background-color: #26266e;
+    color: #6587bf;
+    transform: scale(1.05);
+  }
+  
+  /* Ventana de diálogo centrada */
+  .dialog {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
+    width: 320px;
+    text-align: center;
+    background: white;
+    color: var(--midnight-blue);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s ease;
+  }
+  
+  /* Fondo oscurecido del diálogo */
+  .dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Título y texto */
+  .titulo {
+    margin-bottom: 10px;
+    color: var(--delft-blue);
+    font-size: 20px;
+  }
+  
+  .texto {
+    color: var(--ultra-violet);
+    margin-bottom: 20px;
+    font-size: 15px;
+  }
+  
+  /* Botón de cerrar */
+  .btnCerrar {
+    background: var(--delft-blue);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    font-weight: 600;
+  }
+  
+  .btnCerrar:hover {
+    background: var(--midnight-blue);
+    transform: scale(1.05);
+  }
+  
+  /* Animación de entrada */
+  @keyframes fadeIn {
+    from {
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+  

@@ -1,0 +1,96 @@
+:root {
+    --baby-blue: #96d1f1;
+    --delft-blue: #2a3a71;
+    --midnight-blue: #26266e;
+    --ultra-violet: #55588c;
+    --periwinkle: #bdbce2;
+    --glaucous: #6587bf;
+    --gradient-main: linear-gradient(
+      135deg,
+      var(--baby-blue),
+      var(--delft-blue),
+      var(--midnight-blue)
+    );
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .fabContainer {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  /* Botón principal (flotante) */
+  .fabButton {
+    background: linear-gradient(135deg, #191c4b,#32365d, #3b3a83);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+  
+  .fabButton:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Menú flotante (inicialmente oculto) */
+  .fabMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Cuando se abre */
+  .show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+  
+  /* Botones flotantes secundarios */
+  .fabItem {
+    background: white;
+    color: var(--midnight-blue);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, background 0.3s;
+    text-decoration: none;
+  }
+  
+  .fabItem:hover {
+    background: var(--baby-blue);
+    transform: scale(1.1);
+  }
+  
+  .fabItem ion-icon {
+    font-size: 26px;
+  }
+  

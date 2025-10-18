@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Template } from "../coponentes/template";
 import Css from './../css/calendario.module.css';
 
 export function Calendario() {
@@ -197,6 +198,7 @@ export function Calendario() {
           </div>
         </div>
       </div>
+      <Template/>
     </div>
   );
 }

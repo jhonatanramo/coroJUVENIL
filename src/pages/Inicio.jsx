@@ -1,9 +1,11 @@
 import React from "react";
 import Css from './../css/Inicio.module.css';
+import {Template} from '../coponentes/Template';
 
 export function Inicio() {
   return (
     <div className={Css.Fondo}>
+      <Template/>
       <div className={Css.overlay}>
         <div className={Css.sub}>
           <div className={Css.caja}>
