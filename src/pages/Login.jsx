@@ -1,8 +1,37 @@
-import React from "react";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Css from "./../css/login.module.css";
-import { Link } from "react-router-dom";
 
 export function Login() {
+  const [fecha, setFecha] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("api/login/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fecha }),
+        credentials: "include", // 👈 MUY IMPORTANTE para sesiones
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Inicio de sesión exitoso:", data);
+        navigate("/index");
+      } else {
+        console.error("Error en el inicio de sesión:", data.error);
+        alert(data.error || "Error en el inicio de sesión");
+      }
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+      alert("No se pudo conectar con el servidor");
+    }
+  };
+
   return (
     <div className={Css.Fondo}>
       <div className={Css.overlay}>
@@ -15,11 +44,25 @@ export function Login() {
           <div className={Css.caja}></div>
 
           <div className={Css.botones}>
-            <Link to="/Incio">
-              <button className={Css.btn}>Ingresar</button>
-            </Link>
-            <Link to="/directora">
-              <button className={Css.btnSecundario}>Directora</button>
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="fecha">Fecha de Nacimiento</label><br />
+              <input
+                type="date"
+                id="fecha"
+                name="fecha"
+                required
+                value={fecha}
+                onChange={(e) => setFecha(e.target.value)}
+              />
+              <p>Debe registrarse si es su primera vez</p>
+
+              <button type="submit" className={Css.btn}>Ingresar</button>
+            </form>
+
+            <Link to="/Usuario">
+              <button type="button" className={Css.btnSecundario}>
+                Registrarse
+              </button>
             </Link>
           </div>
         </div>

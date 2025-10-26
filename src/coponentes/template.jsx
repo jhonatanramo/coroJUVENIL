@@ -14,7 +14,7 @@ export function Template() {
           <ion-icon name="logo-whatsapp"></ion-icon>
         </Link>
 
-        <Link to="/services" className={Css.fabItem}>
+        <Link to="/Repertorio" className={Css.fabItem}>
           <ion-icon name="construct-outline"></ion-icon>
         </Link>
         <Link to="/Calendario" className={Css.fabItem}>

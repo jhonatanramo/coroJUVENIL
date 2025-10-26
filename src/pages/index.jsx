@@ -1,38 +1,51 @@
 import Css from "../css/Index.module.css";
-import { Template } from "../coponentes/template";
-
-import { Popover } from "../coponentes/Popover";
+import { Template } from "../coponentes/Template"; // Asegúrate que la ruta esté bien escrita
+import { useEffect, useState } from "react";
+import { Fondo } from "../coponentes/Fondo";
 
 export function Index() {
+  const [usuario, setUsuario] = useState({});
+
+  // ✅ Declarar correctamente la función
+  const activarPantallaCompleta = () => {
+    const elem = document.documentElement; // toda la página
+    if (elem.requestFullscreen) {
+      elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+      elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) {
+      elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) {
+      elem.msRequestFullscreen();
+    }
+  };
+
+  const session = async () => {
+    try {
+      const response = await fetch("/api/session/", {
+        credentials: "include", // incluye cookies o sesión activa
+      });
+      if (!response.ok) throw new Error("Error al obtener la sesión");
+      const data = await response.json();
+      setUsuario(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  useEffect(() => {
+    session();
+  }, []);
+
   return (
-    <div className={Css.Fondo}>
-      <div className={Css.overlay}>
-        <div className={Css.sub}>
-          <h1 className={Css.titulo}>Bienvenido..!!</h1>
-          <hr className={Css.linea} />
-          <p className={Css.texto}>No hay evento por el momento</p>
-          <hr className={Css.linea} />
-          <p className={Css.texto}>
-            Regístrese por favor si es la primera vez
-          </p>
-          
-          <Popover titulo="Registro de Usuario" Registrarse="Registrarse">
-            <form className={Css.formulario}>
-              <label>Nombre</label>
-              <input type="text" placeholder="Ingrese su nombre" />
+    <Fondo>
+      <div className={Css.contenido}>
+        <h1>Bienvenido {usuario.nombre ? usuario.nombre : "Usuario"}</h1>
+        <p>Esta es la página de inicio.</p>
 
-              <label>Apellido Paterno</label>
-              <input type="text" placeholder="Ingrese su apellido" />
-
-              <label>Fecha de Nacimiento</label>
-              <input type="date" />
-
-              <button type="submit">Confirmar</button>
-            </form>
-          </Popover>
-        </div>
+        {/* ✅ En React se usa onClick, no onclick */}
+        <button onClick={activarPantallaCompleta}>Pantalla completa</button>
       </div>
-      <Template />
-    </div>
+    </Fondo>
   );
 }

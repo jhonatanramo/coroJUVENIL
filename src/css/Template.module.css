@@ -33,7 +33,7 @@
   .fabButton {
     background: linear-gradient(135deg, #191c4b,#32365d, #3b3a83);
     color: white;
-    border: none;
+    border: solid 1.7px white;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -42,7 +42,7 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.618);
     transition: transform 0.3s ease, background 0.3s ease;
   }
   
