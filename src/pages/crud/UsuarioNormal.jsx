@@ -1,4 +1,3 @@
-import Css from './../../css/Login.module.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Fondo } from '../../coponentes/Fondo';
@@ -96,7 +95,7 @@ export function UsuarioNormal() {
 
         <label>Fecha Nacimiento:</label><br />
         <input type="date" value={fechaNacimiento} onChange={e => setFechaNacimiento(e.target.value)} /><br /><br />
-        <div className={Css.btn} onClick={handleSubmit}>Registrarse</div><br />
+        <div  onClick={handleSubmit}>Registrarse</div><br />
         <Link to='/'>Regresar</Link>
         {mensaje && <p>{mensaje}</p>}
     </Fondo>

@@ -1,5 +1,5 @@
 import Css from './../css/Fondo.module.css';
-import Template from './Template';
+import { Template } from './Sub/Template';
 
 export function Fondo({ children }) {
   return (
