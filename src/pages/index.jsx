@@ -1,5 +1,4 @@
 import Css from "../css/Index.module.css";
-import { Template } from "../coponentes/Template"; // Asegúrate que la ruta esté bien escrita
 import { useEffect, useState } from "react";
 import { Fondo } from "../coponentes/Fondo";
 
