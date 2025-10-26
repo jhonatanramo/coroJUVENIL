@@ -1,4 +1,4 @@
-import Css from '../../css/Login.module.css';
+import Css from './../../css/Login.module.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 export function UsuarioNormal() {
