@@ -1,14 +1,10 @@
 import React from "react";
 import Css from './../css/Inicio.module.css';
-import { Template } from "../coponentes/template";
-
+import {Fondo} from '././../coponentes/Fondo'
 export function Inicio() {
   return (
-    <div className={Css.Fondo}>
-      <Template/>
-      <div className={Css.overlay}>
-        <div className={Css.sub}>
-          <div className={Css.caja}>
+    <Fondo>
+      <div className={Css.caja}>
             <h1>Adios Sea Gloria</h1>
             <h2>Parrafo #</h2>
             <hr />
@@ -30,8 +26,7 @@ export function Inicio() {
             </div>
             <hr />
           </div>
-        </div>
-      </div>
-    </div>
+    </Fondo>
+          
   );
 }

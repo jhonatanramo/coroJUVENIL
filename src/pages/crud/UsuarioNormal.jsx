@@ -1,6 +1,7 @@
 import Css from './../../css/Login.module.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Fondo } from '../../coponentes/Fondo';
 export function UsuarioNormal() {
   const [Iglesias, setIglesias] = useState([]);
 
@@ -71,37 +72,35 @@ export function UsuarioNormal() {
   };
 
   return (
-    <div className={Css.Fondo}>
-      <div className={Css.overlay}>
-        <div className={Css.sub}>
-          <h1>Registro de datos</h1>
+    <Fondo>
+      <h1>Registro de datos</h1>
         
-          <label>Nombre:</label><br />
-          <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} /><br />
+        <label>Nombre:</label><br />
+        <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} /><br />
 
-          <label>A. Paterno:</label><br />
-          <input type="text" value={apellidoP} onChange={e => setApellidoP(e.target.value)} /><br />
+        <label>A. Paterno:</label><br />
+        <input type="text" value={apellidoP} onChange={e => setApellidoP(e.target.value)} /><br />
 
-          <label>A. Materno:</label><br />
-          <input type="text" value={apellidoM} onChange={e => setApellidoM(e.target.value)} /><br />
+        <label>A. Materno:</label><br />
+        <input type="text" value={apellidoM} onChange={e => setApellidoM(e.target.value)} /><br />
 
-          <label>Iglesia a la que asiste:</label><br />
-          <select value={iglesiaId} onChange={e => setIglesiaId(e.target.value)}>
-            <option value="">Seleccionar</option>
-            {Iglesias.map((iglesia) => (
-              <option key={iglesia.id} value={iglesia.id}>
-                {iglesia.nombre}
-              </option>
-            ))}
-          </select><br />
+        <label>Iglesia a la que asiste:</label><br />
+        <select value={iglesiaId} onChange={e => setIglesiaId(e.target.value)}>
+          <option value="">Seleccionar</option>
+          {Iglesias.map((iglesia) => (
+            <option key={iglesia.id} value={iglesia.id}>
+              {iglesia.nombre}
+            </option>
+          ))}
+        </select><br />
 
-          <label>Fecha Nacimiento:</label><br />
-          <input type="date" value={fechaNacimiento} onChange={e => setFechaNacimiento(e.target.value)} /><br /><br />
-          <div className={Css.btn} onClick={handleSubmit}>Registrarse</div><br />
-          <Link to='/'>Regresar</Link>
-          {mensaje && <p>{mensaje}</p>}
-        </div>
-      </div>
-    </div>
+        <label>Fecha Nacimiento:</label><br />
+        <input type="date" value={fechaNacimiento} onChange={e => setFechaNacimiento(e.target.value)} /><br /><br />
+        <div className={Css.btn} onClick={handleSubmit}>Registrarse</div><br />
+        <Link to='/'>Regresar</Link>
+        {mensaje && <p>{mensaje}</p>}
+    </Fondo>
+          
+        
   );
 }

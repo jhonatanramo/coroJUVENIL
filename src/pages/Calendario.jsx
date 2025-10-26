@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Template } from "../coponentes/template";
 import Css from './../css/calendario.module.css';
+import { Fondo } from "../coponentes/Fondo";
 
 export function Calendario() {
   // State for current view (month/year)
@@ -103,11 +103,9 @@ export function Calendario() {
   }
 
   return (
-    <div className={Css.Fondo}>
-      <div className={Css.overlay}>
-        <div className={Css.sub}>
-          {/* Header with navigation */}
-          <div className={Css.calendarioHeader}>
+    <Fondo>
+      {/* Header with navigation */}
+      <div className={Css.calendarioHeader}>
             <button className={Css.navButton} onClick={mesAnterior}>
               &lt;
             </button>
@@ -196,9 +194,7 @@ export function Calendario() {
               <span>Con evento</span>
             </div>
           </div>
-        </div>
-      </div>
-      <Template/>
-    </div>
+    </Fondo>
+          
   );
 }
