@@ -15,7 +15,7 @@ export function Buscar() {
 
           <div className={Css.buscarBox}>
             <input type="text" placeholder="Escribe aquí..." />
-            <button>Buscar</button>
+            <button>Buscasr</button>
           </div>
         </div>
       </div>
