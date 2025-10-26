@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Css from "../css/Template.module.css";
+import Css from "../../css/Template.module.css";
 
 export function Template() {
   const [open, setOpen] = useState(false);
