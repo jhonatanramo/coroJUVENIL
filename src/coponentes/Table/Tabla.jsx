@@ -11,7 +11,7 @@ export function Tabla({ data }) {
   // ✅ Cargar datos desde el backend
   const cargarDatos = async () => {
     try {
-      const res = await fetch(data.ruta);
+      const res = await fetch('https://backcorojuvenil.onrender.com/'+data.ruta);
       if (!res.ok) throw new Error();
       const json = await res.json();
 
