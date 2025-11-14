@@ -64,6 +64,7 @@ export function Login() {
       localStorage.setItem('nombre', data.usuario.nombre);
       localStorage.setItem('paterno', data.usuario.apellido_p);
       localStorage.setItem('materno', data.usuario.apellido_m);
+      localStorage.setItem('rol', data.usuario.rol);
       localStorage.setItem('url', data.usuario.url || "");
 
       console.log("Inicio de sesión exitoso:", data);
@@ -83,6 +84,8 @@ export function Login() {
   return (
     <div className={Css.Fondo}>
       <div className={Css.caja}>
+        <h1>Armonia Juvenil</h1>
+        <h2>"El Torno - Puerto Rico - Jorochito - Tiquipaya - La Angostua"</h2>
         <img src={Img} alt="Usuario" className={Css.imagen} />
 
         <form onSubmit={handleSubmit} className={Css.form}>

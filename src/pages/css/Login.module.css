@@ -1,13 +1,8 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
 
 /* 🌅 Fondo general */
 .Fondo {
-  background-color: var(--gris-medio);
+  background-color: rgba(0, 0, 0, 0.315);
+
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -47,7 +42,22 @@
   gap: 15px;
   margin-bottom: 20px;
 }
+.caja h1 {
+  font-size: 2rem;
+  font-weight: 750; /* Ya era 900, dejé solo uno */
+  color: #000000;;
+  margin-bottom: 8px;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
 
+.caja h2 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.586);
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
 .input {
   padding: 12px 16px;
   border: 2px solid var(--gris-medio);
