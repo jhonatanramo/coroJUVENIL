@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Barra } from "../coponentes/BarraMenu/Barra";
 import { Titulo } from "../coponentes/Cabesera/Titulo";
-import Css from './css/Buscar.module.css';
+import Css from "./css/Buscar.module.css";
+import Server from "../api"; // ✔ instancia Axios
 
 export function Buscar() {
   const [titulo, setTitulo] = useState([]);
@@ -11,7 +12,8 @@ export function Buscar() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [indexActual, setIndexActual] = useState(0);
-
+  parrafo;
+  // Mezclar los párrafos con el coro
   const mezclar = (parrafos, coro) => {
     const resultado = [];
     parrafos.forEach((p) => {
@@ -22,12 +24,12 @@ export function Buscar() {
     setIndexActual(0);
   };
 
+  // Obtener títulos del repertorio
   useEffect(() => {
     const GetTitulo = async () => {
       try {
-        const response = await fetch("https://backcorojuvenil.onrender.com/api/repertorios/");
-        const data = await response.json();
-        setTitulo(data);
+        const response = await Server.get("api/repertorios/");
+        setTitulo(response.data);
       } catch (error) {
         console.error("Error al cargar títulos:", error);
       }
@@ -35,6 +37,7 @@ export function Buscar() {
     GetTitulo();
   }, []);
 
+  // Filtrar títulos
   const titulosFiltrados = titulo.filter((item) => {
     const busqueda = filtro.toLowerCase();
     return (
@@ -43,35 +46,39 @@ export function Buscar() {
     );
   });
 
+  // Obtener párrafos de una canción
   const Parrafos = async (nro, coro) => {
     try {
-      const response = await fetch(`https://backcorojuvenil.onrender.com/api/parrafos/${nro}/`);
-      const data = await response.json();
-      setParrafo(data);
-      mezclar(data, coro);
+      const response = await Server.get(`api/parrafos/${nro}/`);
+      setParrafo(response.data);
+      mezclar(response.data, coro);
     } catch (error) {
       console.error("❌ Error al obtener los párrafos:", error);
     }
   };
 
+  // Abrir modal
   const openModal = (item) => {
     setSelectedItem(item);
     setModalOpen(true);
     Parrafos(item.id, item.coro);
   };
 
+  // Cerrar modal
   const closeModal = () => {
     setSelectedItem(null);
     setModalOpen(false);
     setIndexActual(0);
   };
 
+  // Navegar siguiente
   const siguiente = () => {
     setIndexActual((prev) =>
       prev + 1 < Oficial.length ? prev + 1 : prev
     );
   };
 
+  // Navegar anterior
   const anterior = () => {
     setIndexActual((prev) =>
       prev - 1 >= 0 ? prev - 1 : prev
@@ -82,6 +89,7 @@ export function Buscar() {
     <Barra>
       <Titulo icon="book" titulo="Repertorio" />
 
+      {/* Buscador */}
       <div style={{ margin: "20px 0", display: "flex", justifyContent: "center" }}>
         <input
           type="text"
@@ -92,11 +100,10 @@ export function Buscar() {
         />
       </div>
 
+      {/* Lista de tarjetas */}
       <div className={Css.contenedor}>
         {titulosFiltrados.length === 0 ? (
-          <div className={Css.emptyState}>
-            No se encontraron títulos.
-          </div>
+          <div className={Css.emptyState}>No se encontraron títulos.</div>
         ) : (
           titulosFiltrados.map((item) => (
             <div
@@ -112,44 +119,43 @@ export function Buscar() {
         )}
       </div>
 
+      {/* Modal */}
       {modalOpen && selectedItem && (
         <div className={Css.modalOverlay} onClick={closeModal}>
-          <div className={Css.modalContent} onClick={(e) => e.stopPropagation()}>
-            
-            {/* Cabecera fija similar a tabla */}
+          <div
+            className={Css.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Cabecera */}
             <div className={Css.modalHeader}>
               <h2>{selectedItem.nombre}</h2>
             </div>
 
-            {/* Cuerpo con scroll */}
+            {/* Cuerpo */}
             <div className={Css.modalBody}>
               {Oficial.length > 0 ? (
                 <div className={Css.letraContainer}>
-                  <div className={Css.letraTexto}>
-                    {Oficial[indexActual]}
-                  </div>
+                  <div className={Css.letraTexto}>{Oficial[indexActual]}</div>
                 </div>
               ) : (
-                <div className={Css.emptyState}>
-                  Cargando letra...
-                </div>
+                <div className={Css.emptyState}>Cargando letra...</div>
               )}
             </div>
 
-            {/* Pie fijo con controles */}
+            {/* Footer */}
             <div className={Css.modalFooter}>
               <div className={Css.controlesNavegacion}>
                 <div className={Css.botonesGrupo}>
-                  <button 
-                    onClick={anterior} 
+                  <button
+                    onClick={anterior}
                     className={`${Css.btn} ${Css.btnPrimary}`}
                     disabled={indexActual === 0}
                   >
                     ◀ Anterior
                   </button>
-                  
-                  <button 
-                    onClick={siguiente} 
+
+                  <button
+                    onClick={siguiente}
                     className={`${Css.btn} ${Css.btnPrimary}`}
                     disabled={indexActual === Oficial.length - 1}
                   >

@@ -5,7 +5,7 @@ import {Tabla} from '../../coponentes/Table/Tabla';
 
 export function Iglesias(){
     const data1 = {
-        ruta: "/api/iglesias/",
+        ruta: "api/iglesias/",
         eliminar: "/api/iglesia/eliminar/", 
         cabesera: ["foto","Código"],
         valor: ["nombre-t","id-t"]

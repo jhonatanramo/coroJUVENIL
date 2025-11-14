@@ -2,47 +2,48 @@ import { Popover } from "../Popover/Popover";
 import { useState, useEffect } from "react";
 import Css from "./Formulario.module.css";
 import { toast } from "react-toastify";
+import Server from "../../api"; // ✔ instancia Axios
 
 function v(nro, data) {
   const vector = data.split("-");
   return vector[nro - 1];
 }
 
-// 🔑 Tu API key de imgbb
+// 🔑 API key de imgbb
 const IMGBB_API_KEY = "a224f36313d7c8d81307b1d21747b9be";
 
 export function Formulario({ data }) {
   const [formValues, setFormValues] = useState(() => {
     const inputs = data.Input.reduce((acc, curr) => {
-      const key = v(1, curr);
-      acc[key] = "";
+      acc[v(1, curr)] = "";
       return acc;
-    }, {}); // <-- punto y coma
+    }, {});
 
     const selects = data.Recibir.reduce((acc, sel) => {
       if (sel.name.includes("-MasDeUno")) {
-        const fieldName = sel.name.replace("-MasDeUno", "");
-        acc[fieldName] = [];
+        acc[sel.name.replace("-MasDeUno", "")] = [];
       } else {
         acc[sel.name] = "";
       }
       return acc;
-    }, {}); // <-- punto y coma
+    }, {});
 
     return { ...inputs, ...selects };
-  }); // <-- punto y coma
+  });
 
   const [imagePreviews, setImagePreviews] = useState({});
   const [options, setOptions] = useState({});
   const [mensaje, setMensaje] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  mensaje;
+  // -----------------------------------------------------------
+  // 📌 Cargar las opciones de selects usando Axios
+  // -----------------------------------------------------------
   useEffect(() => {
     data.Recibir.forEach(async (sel) => {
       try {
-        const response = await fetch('https://backcorojuvenil.onrender.com/'+sel.Ruta);
-        const json = await response.json();
-        setOptions((prev) => ({ ...prev, [sel.name]: json }));
+        const response = await Server.get(sel.Ruta);
+        setOptions((prev) => ({ ...prev, [sel.name]: response.data }));
       } catch (error) {
         console.error("Error al cargar opciones:", error);
         setOptions((prev) => ({ ...prev, [sel.name]: [] }));
@@ -50,21 +51,30 @@ export function Formulario({ data }) {
     });
   }, [data.Recibir]);
 
+  // -----------------------------------------------------------
+  // 📌 Manejo checkbox múltiples
+  // -----------------------------------------------------------
   const handleCheckboxChange = (fieldName, optionId, isChecked) => {
     setFormValues((prev) => {
-      const currentValues = prev[fieldName] || [];
-      if (isChecked) {
-        return { ...prev, [fieldName]: [...currentValues, optionId] };
-      } else {
-        return { ...prev, [fieldName]: currentValues.filter((id) => id !== optionId) };
-      }
+      const current = prev[fieldName] || [];
+      return {
+        ...prev,
+        [fieldName]: isChecked
+          ? [...current, optionId]
+          : current.filter((id) => id !== optionId)
+      };
     });
   };
 
+  // -----------------------------------------------------------
+  // 📌 Input y archivos
+  // -----------------------------------------------------------
   const handleChange = (e) => {
     const { name, value, files, type } = e.target;
+
+    // FILE
     if (type === "file") {
-      const file = files[0];
+      const file = files?.[0];
       setFormValues({ ...formValues, [name]: file });
 
       if (file) {
@@ -78,125 +88,137 @@ export function Formulario({ data }) {
         reader.readAsDataURL(file);
       } else {
         setImagePreviews((prev) => {
-          const newPreviews = { ...prev };
-          delete newPreviews[name];
-          return newPreviews;
+          const newPrev = { ...prev };
+          delete newPrev[name];
+          return newPrev;
         });
       }
-    } else {
-      setFormValues({ ...formValues, [name]: value });
+      return;
     }
+
+    // TEXT
+    setFormValues({ ...formValues, [name]: value });
   };
 
+  // -----------------------------------------------------------
+  // 📌 Subir imagen a imgbb usando Axios
+  // -----------------------------------------------------------
   const uploadToImgbb = async (file) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
+  
       reader.onloadend = async () => {
         const base64Image = reader.result.split(",")[1];
         const formData = new FormData();
         formData.append("image", base64Image);
-
+  
         try {
           const response = await fetch(
             `https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`,
-            { method: "POST", body: formData }
+            {
+              method: "POST",
+              body: formData,
+            }
           );
+  
           const result = await response.json();
+  
           if (result?.data?.url) resolve(result.data.url);
           else reject("Error al subir imagen");
         } catch (err) {
           reject(err.message);
         }
       };
+  
       reader.readAsDataURL(file);
     });
   };
-
+  
+  // -----------------------------------------------------------
+  // 📌 Enviar formulario usando Axios
+  // -----------------------------------------------------------
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
+
     setIsSubmitting(true);
     setMensaje("⏳ Procesando...");
 
     try {
-      if (!data.Backendt || data.Backendt.trim() === "") {
-        setMensaje("⚠️ No se ha definido la ruta Backendt en el objeto data.");
-        setIsSubmitting(false);
+      if (!data.Backendt) {
+        toast.error("Backendt no definido");
         return;
       }
 
       const payload = { ...formValues };
 
-      if (data.carrito && data.carrito.length > 0) {
+      // Agregar carrito si existe
+      if (data.carrito?.length > 0) {
         payload.productos = data.carrito;
       }
 
+      // Subir imágenes primero
       for (const key in formValues) {
         if (formValues[key] instanceof File) {
-          const file = formValues[key];
           setMensaje("⏳ Subiendo imagen...");
-          const imageUrl = await uploadToImgbb(file);
-          payload[key] = imageUrl;
+          const url = await uploadToImgbb(formValues[key]);
+          payload[key] = url;
         }
       }
 
-      const response = await fetch('https://backcorojuvenil.onrender.com/'+data.Backendt, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+      // Enviar datos al backend
+      const response = await Server.post(data.Backendt, payload);
 
-      const result = await response.json();
-
-      if (response.ok && (result.success === true || !result.error)) {
-        setMensaje(result.message || "✅ Operación exitosa");
-        toast.success("✅ Proceso realizado correctamente");
+      if (response.data?.success || !response.data?.error) {
+        toast.success("✅ Operación exitosa");
+        setMensaje("✔️ Enviado correctamente");
         handleCancel();
       } else {
-        setMensaje(result.message || "❌ Ocurrió un error en el servidor");
-        toast.error("❌ Ocurrió un error en el servidor");
+        toast.error("❌ Error en el servidor");
+        setMensaje("❌ Error en el servidor");
       }
     } catch (error) {
-      console.error("❌ Error al enviar formulario:", error);
-      setMensaje("Error de conexión con el backend ❌");
-      toast.error("Error de conexión con el backend ❌");
+      console.error("Error:", error);
+      toast.error("❌ Error de conexión");
+      setMensaje("❌ Error de conexión");
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // -----------------------------------------------------------
+  // 📌 Reset formulario
+  // -----------------------------------------------------------
   const handleCancel = () => {
-    const resetInputs = data.Input.reduce((acc, curr) => {
-      acc[v(1, curr)] = "";
-      return acc;
-    }, {});
+    const resetInputs = data.Input.reduce(
+      (acc, curr) => ({ ...acc, [v(1, curr)]: "" }),
+      {}
+    );
 
     const resetSelects = data.Recibir.reduce((acc, sel) => {
-      if (sel.name.includes("-MasDeUno")) {
-        const fieldName = sel.name.replace("-MasDeUno", "");
-        acc[fieldName] = [];
-      } else {
-        acc[sel.name] = "";
-      }
-      return acc;
+      const field = sel.name.includes("-MasDeUno")
+        ? sel.name.replace("-MasDeUno", "")
+        : sel.name;
+
+      return { ...acc, [field]: sel.name.includes("-MasDeUno") ? [] : "" };
     }, {});
 
     setFormValues({ ...resetInputs, ...resetSelects });
     setImagePreviews({});
   };
 
-  const removeImagePreview = (fieldName) => {
-    setFormValues((prev) => ({
-      ...prev,
-      [fieldName]: ""
-    }));
+  const removeImagePreview = (field) => {
+    setFormValues((prev) => ({ ...prev, [field]: "" }));
     setImagePreviews((prev) => {
-      const newPreviews = { ...prev };
-      delete newPreviews[fieldName];
-      return newPreviews;
+      const p = { ...prev };
+      delete p[field];
+      return p;
     });
   };
 
+  // -----------------------------------------------------------
+  // 📌 Render
+  // -----------------------------------------------------------
   return (
     <Popover botonTexto={data.Titulo}>
       <form onSubmit={handleSubmit} className={Css.formulario}>
@@ -205,36 +227,36 @@ export function Formulario({ data }) {
         </center>
         <hr className={Css.linea} />
 
+        {/* ---------------- INPUTS ---------------- */}
         {data.Input.map((item, index) => {
           const key = v(1, item);
           const label = v(2, item);
           let type = v(3, item);
+          const placeholder = v(4, item);
 
-          // Si viene "-url", forzamos input text con value de data.url.url
           if (type === "url" && data.url?.estado) {
+            formValues[key] = data.url.url;
             type = "text";
-            formValues[key] = data.url.url || "vcxvxc";
           }
-
-          const sub = v(4, item);
-          const hasPreview = type === "file" && imagePreviews[key];
 
           return (
             <div className={Css.caja} key={index}>
               {type === "file" ? (
-                !imagePreviews[key] && (
-                  <div>
-                    <label className={Css.foto}>{label}</label>
-                    <input
-                      className={`${Css.file} ${Css.input}`}
-                      type={type}
-                      name={key}
-                      onChange={handleChange}
-                      accept="image/*"
-                      required
-                    />
-                  </div>
-                )
+                <>
+                  {!imagePreviews[key] && (
+                    <>
+                      <label className={Css.foto}>{label}</label>
+                      <input
+                        type="file"
+                        className={`${Css.file} ${Css.input}`}
+                        name={key}
+                        accept="image/*"
+                        onChange={handleChange}
+                        required
+                      />
+                    </>
+                  )}
+                </>
               ) : type === "tt" ? (
                 <>
                   <label className={Css.label}>{label}</label>
@@ -243,8 +265,7 @@ export function Formulario({ data }) {
                     name={key}
                     value={formValues[key]}
                     onChange={handleChange}
-                    rows={4}
-                    placeholder={sub}
+                    placeholder={placeholder}
                     required
                   />
                 </>
@@ -252,21 +273,20 @@ export function Formulario({ data }) {
                 <>
                   <label className={Css.label}>{label}</label>
                   <input
-                    className={`${Css.input}`}
                     type={type}
                     name={key}
                     value={formValues[key]}
                     onChange={handleChange}
+                    className={Css.input}
                     required
                   />
                 </>
               )}
 
-              {hasPreview && (
+              {type === "file" && imagePreviews[key] && (
                 <div className={Css.previewContainer}>
                   <img
                     src={imagePreviews[key]}
-                    alt="Vista previa"
                     className={Css.previewImage}
                   />
                   <button
@@ -282,59 +302,63 @@ export function Formulario({ data }) {
           );
         })}
 
-        {data.Recibir.map((sel, index) => {
+        {/* ---------------- SELECTS & CHECKBOX ---------------- */}
+        {data.Recibir.map((sel, i) => {
           const isMultiple = sel.name.includes("-MasDeUno");
-          const fieldName = isMultiple ? sel.name.replace("-MasDeUno", "") : sel.name;
-          const displayName = fieldName;
+          const field = isMultiple
+            ? sel.name.replace("-MasDeUno", "")
+            : sel.name;
           const [idKey, nameKey] = sel.items || ["id", "nombre"];
 
-          if (isMultiple) {
-            const selectedValues = formValues[fieldName] || [];
-            return (
-              <div className={Css.caja} key={`checkbox-${index}`}>
-                <label className={Css.label}>{displayName} (Selección múltiple)</label>
-                <div className={Css.checkboxContainer}>
-                  {options[sel.name] &&
-                    options[sel.name].map((opt) => (
-                      <label key={opt[idKey]} className={Css.checkboxLabel}>
-                        <input
-                          type="checkbox"
-                          checked={selectedValues.includes(opt[idKey])}
-                          onChange={(e) =>
-                            handleCheckboxChange(fieldName, opt[idKey], e.target.checked)
-                          }
-                          className={Css.checkboxInput}
-                        />
-                        <span className={Css.checkboxText}>{opt[nameKey]}</span>
-                      </label>
-                    ))}
-                </div>
-              </div>
-            );
-          } else {
-            return (
-              <div className={Css.caja} key={`select-${index}`}>
-                <label className={Css.label}>{displayName}</label>
-                <select
-                  className={Css.input}
-                  name={fieldName}
-                  value={formValues[fieldName]}
-                  onChange={handleChange}
-                  required
-                >
-                  <option value="">--Seleccionar--</option>
-                  {options[sel.name] &&
-                    options[sel.name].map((opt) => (
+          return (
+            <div className={Css.caja} key={i}>
+              {!isMultiple ? (
+                <>
+                  <label className={Css.label}>{field}</label>
+                  <select
+                    className={Css.input}
+                    name={field}
+                    value={formValues[field]}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">--Seleccionar--</option>
+                    {options[sel.name]?.map((opt) => (
                       <option key={opt[idKey]} value={opt[idKey]}>
                         {opt[nameKey]}
                       </option>
                     ))}
-                </select>
-              </div>
-            );
-          }
+                  </select>
+                </>
+              ) : (
+                <>
+                  <label className={Css.label}>{field} (múltiple)</label>
+                  <div className={Css.checkboxContainer}>
+                    {options[sel.name]?.map((opt) => (
+                      <label key={opt[idKey]} className={Css.checkboxLabel}>
+                        <input
+                          type="checkbox"
+                          className={Css.checkboxInput}
+                          checked={(formValues[field] || []).includes(opt[idKey])}
+                          onChange={(e) =>
+                            handleCheckboxChange(
+                              field,
+                              opt[idKey],
+                              e.target.checked
+                            )
+                          }
+                        />
+                        {opt[nameKey]}
+                      </label>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          );
         })}
 
+        {/* ---------------- BOTONES ---------------- */}
         <div className={Css.botones}>
           <button type="submit" className={Css.enviar} disabled={isSubmitting}>
             {isSubmitting ? "Enviando..." : "Enviar"}

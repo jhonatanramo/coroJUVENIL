@@ -1,34 +1,31 @@
 import Css from "../css/Index.module.css";
 import { useEffect, useState } from "react";
 import { Fondo } from "../coponentes/Fondo";
-import {Barra} from '../coponentes/BarraMenu/Barra';
+import { Barra } from '../coponentes/BarraMenu/Barra';
+import Server from "../api"; // ✔ instancia Axios correcta
+
 export function Index() {
   const [usuario, setUsuario] = useState({});
 
-  // ✅ Declarar correctamente la función
+  // Pantalla completa
   const activarPantallaCompleta = () => {
-    const elem = document.documentElement; // toda la página
-    if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-    } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-    } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-    }
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) elem.requestFullscreen();
+    else if (elem.mozRequestFullScreen) elem.mozRequestFullScreen();
+    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+    else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
   };
 
+  // Obtener sesión con Axios
   const session = async () => {
     try {
-      const response = await fetch("https://backcorojuvenil.onrender.com/api/session/", {
-        credentials: "include", // incluye cookies o sesión activa
+      const response = await Server.get("api/session/", {
+        withCredentials: true, // ✔ reemplazo de credentials:"include"
       });
-      if (!response.ok) throw new Error("Error al obtener la sesión");
-      const data = await response.json();
-      setUsuario(data);
+
+      setUsuario(response.data);
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error al obtener sesión:", error);
     }
   };
 
@@ -42,8 +39,9 @@ export function Index() {
         <h1>Bienvenido {usuario.nombre ? usuario.nombre : "Usuario"}</h1>
         <p>Esta es la página de inicio.</p>
 
-        {/* ✅ En React se usa onClick, no onclick */}
-        <button onClick={activarPantallaCompleta}>Pantalla completa</button>
+        <button onClick={activarPantallaCompleta}>
+          Pantalla completa
+        </button>
       </div>
     </Barra>
   );

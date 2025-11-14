@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Css from './../css/calendario.module.css';
 import { Titulo } from '../coponentes/Cabesera/Titulo';
-import ICAL from "ical.js"; 
+import ICAL from "ical.js";
 import { Barra } from "../coponentes/BarraMenu/Barra";
+import Server from "../api"; // ✔ instancia Axios correcta
 
 export function Calendario() {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -12,19 +13,20 @@ export function Calendario() {
   const [loading, setLoading] = useState(true);
 
   const urlFeriados =
-    "https://calendar.google.com/calendar/embed?src=en.bo%23holiday%40group.v.calendar.google.com&ctz=America%2FLa_Paz"
+    "https://calendar.google.com/calendar/embed?src=en.bo%23holiday%40group.v.calendar.google.com&ctz=America%2FLa_Paz";
+
   const dias = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
   const meses = [
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
   ];
 
-  // 👉 1. Cargar cumpleaños desde Django
+  // 👉 1. Cargar cumpleaños desde Django (Axios)
   useEffect(() => {
     const fetchCumpleanios = async () => {
       try {
-        const res = await fetch("https://backcorojuvenil.onrender.com/api/usuarios/");
-        const data = await res.json();
+        const res = await Server.get("api/usuarios/"); // ✔ Axios
+        const data = res.data;
 
         const eventos = data.map(u => {
           const fn = new Date(u.fecha_nacimiento);
@@ -46,7 +48,7 @@ export function Calendario() {
     fetchCumpleanios();
   }, [currentDate]);
 
-  // 👉 2. Cargar feriados desde Google Calendar ICS
+  // 👉 2. Cargar feriados desde Google Calendar ICS  (NO se puede usar Axios)
   useEffect(() => {
     const cargarFeriados = async () => {
       try {
@@ -91,7 +93,6 @@ export function Calendario() {
     currentMonth === today.getMonth() &&
     currentYear === today.getFullYear();
 
-  // 👉 Unificar eventos
   const todosEventos = [...cumpleanios, ...feriados];
 
   const tieneEventos = (dia) =>
@@ -112,9 +113,9 @@ export function Calendario() {
     if (dia !== null) setSelectedDate(new Date(currentYear, currentMonth, dia));
   };
 
-  // 👉 Generar matriz del calendario
   const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
   const fechas = [];
   for (let i = 0; i < firstDayOfMonth; i++) fechas.push(null);
   for (let i = 1; i <= daysInMonth; i++) fechas.push(i);
@@ -170,6 +171,7 @@ export function Calendario() {
         <div className={Css.infoSeleccionada}>
           <h3>Fecha seleccionada:</h3>
           <p>{selectedDate.getDate()} de {meses[selectedDate.getMonth()]} de {selectedDate.getFullYear()}</p>
+
           {obtenerEventos(selectedDate.getDate()).length > 0 ? (
             <div className={Css.listaEventos}>
               <h4>Eventos:</h4>
@@ -179,7 +181,9 @@ export function Calendario() {
                 ))}
               </ul>
             </div>
-          ) : <p className={Css.sinEventos}>No hay eventos en esta fecha</p>}
+          ) : (
+            <p className={Css.sinEventos}>No hay eventos en esta fecha</p>
+          )}
         </div>
       )}
 

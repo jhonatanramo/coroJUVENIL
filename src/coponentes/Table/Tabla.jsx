@@ -2,18 +2,18 @@ import React, { useState, useEffect, useRef } from "react";
 import JsBarcode from "jsbarcode";
 import Css from "./Tabla.module.css";
 import { toast } from "react-toastify";
+import Sever from '../../api'; // ✅ instancia Axios
 
 export function Tabla({ data }) {
   const [datos, setDatos] = useState([]);
   const [modal, setModal] = useState(null);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'asc' });
-
-  // ✅ Cargar datos desde el backend
+  modal
+  // ✅ Cargar datos desde el backend usando Axios
   const cargarDatos = async () => {
     try {
-      const res = await fetch('https://backcorojuvenil.onrender.com/'+data.ruta);
-      if (!res.ok) throw new Error();
-      const json = await res.json();
+      const res = await Sever.get(data.ruta);
+      const json = res.data;
 
       let datosArray;
       if (Array.isArray(json)) {
@@ -27,32 +27,27 @@ export function Tabla({ data }) {
     } catch (error) {
       console.error("Error cargando datos:", error);
       setModal({ estado: false, mensaje: "Error al cargar los datos" });
+      toast.error("❌ Error al cargar los datos");
     }
   };
 
-  // ✅ Eliminar registro
+  // ✅ Eliminar registro usando Axios
   const eliminar = async (id) => {
     const original = [...datos];
     setDatos((prev) => prev.filter((d) => d.id !== id));
-  
+
     try {
-      const res = await fetch('https://backcorojuvenil.onrender.com/'+data.eliminar, {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }) // <- enviamos JSON con el ID
-      });
-  
-      if (!res.ok) throw new Error();
-  
+      await Sever.delete(data.eliminar, { data: { id } });
+
       setModal({ estado: true, mensaje: "Eliminado correctamente" });
       toast.success("✅ Eliminado correctamente");
-    } catch {
+    } catch (error) {
+      console.error("Error al eliminar:", error);
       setModal({ estado: false, mensaje: "Error al eliminar" });
       toast.error("❌ Error al eliminar");
       setDatos(original);
     }
   };
-  
 
   useEffect(() => {
     cargarDatos();
