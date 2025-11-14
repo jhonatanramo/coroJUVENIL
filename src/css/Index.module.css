@@ -1,19 +1,4 @@
-:root {
-    --baby-blue: #96d1f1;
-    --delft-blue: #2a3a71;
-    --midnight-blue: #26266e;
-    --ultra-violet: #55588c;
-    --periwinkle: #bdbce2;
-    --glaucous: #6587bf;
-    --delft-blue-2: #3c4371;
-    --gradient-main: linear-gradient(
-      135deg,
-      var(--baby-blue),
-      var(--delft-blue),
-      var(--midnight-blue)
-    );
-  }
-  
+
   * {
     margin: 0;
     padding: 0;

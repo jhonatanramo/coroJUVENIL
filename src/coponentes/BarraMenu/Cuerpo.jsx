@@ -24,16 +24,8 @@ export function Cuerpo() {
           <Item icon='cube' Titulo="Gestion de Iglesias" enlace="/Iglesias" />
     
         </MenuItem>
-        <MenuItem Icono="cube-outline"
-          Titulo="Anuncios"
-          abierto={menuActivo === 'Anuncios'}
-          onClick={() => toggleSubmenu('Anuncios')}
-        >
-          <Item icon='cube' Titulo="Eventos" enlace="/Dashboard" />
-          <Item icon='cube' Titulo="Repertorios" enlace="/EstadoResultados" />
-        </MenuItem>
+      
 
-        <Item icon='shirt' Titulo="Repertorios" enlace="/EstadoResultados" />
         <Item icon='shirt' Titulo="Busqueda" enlace="/Buscar" />
         <Item icon='shirt' Titulo="Calendario" enlace="/Calendario" />
 

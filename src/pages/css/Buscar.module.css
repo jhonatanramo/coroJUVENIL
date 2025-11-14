@@ -1,192 +1,212 @@
-/* ======== VARIABLES Y ESTILOS GENERALES ======== */
 :root {
-  --azul-primario: #2a3a71;
-  --azul-secundario: #1a349b;
-  --azul-hover: #4463c9;
-  --gris-claro: #f9f9fb;
-  --gris-medio: #8a8d94;
-  --gris-oscuro: #333333;
-  --blanco: #ffffff;
-  --sombra-suave: 0 3px 6px rgba(0,0,0,0.1);
-  --sombra-media: 0 4px 12px rgba(0,0,0,0.15);
-  --sombra-intensa: 0 8px 20px rgba(0,0,0,0.2);
-  --borde-redondeado: 12px;
-  --transicion: all 0.25s ease-in-out;
+  --primario: #1E3A8A;
+  --primario-oscuro: #162D6A;
+  --secundario: #3B82F6;
+  --acento: #7C3AED;
+
+  --blanco: #FFFFFF;
+  --negro: #0F0F0F;
+
+  --gris-suave: #F3F4F6;
+  --gris-medio: #D1D5DB;
+  --gris-oscuro: #6B7280;
+
+  --color-fondo: #FFFFFF;
+  --sombra-suave: 0px 4px 10px rgba(0,0,0,0.08);
+  --sombra-intensa: 0px 8px 20px rgba(0,0,0,0.15);
+  --borde-redondeado: 14px;
+
+  --transicion: 0.25s ease;
 }
 
-/* Contenedor principal de las tarjetas */
+
+/* ======== GRID DE TARJETAS ======== */
 .contenedor {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 22px;
+  padding: 25px;
+  justify-items: stretch;
 }
 
-/* Cada tarjeta */
+/* ======== TARJETAS ======== */
 .tarjeta {
-  background: var(--blanco);
+  background: var(--color-fondo);
   border-radius: var(--borde-redondeado);
-  box-shadow: var(--sombra-suave);
-  padding: 20px;
-  width: 100%;
-  max-width: 300px;
-  transition: var(--transicion);
+  padding: 22px;
   text-align: center;
-  border: 1px solid rgba(42, 58, 113, 0.1);
   cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+
+  transition: var(--transicion);
+  box-shadow: var(--sombra-suave);
+  border: 1px solid transparent;
+
+  /* Efecto elegante */
+  backdrop-filter: blur(2px);
 }
 
 .tarjeta:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--sombra-intensa);
-  border-color: var(--azul-primario);
+  transform: translateY(-6px);
+  border-color: var(--secundario);
+  box-shadow: 0px 8px 20px rgba(0,0,0,0.12);
 }
 
+/* Título principal */
 .tarjeta h1 {
-  font-size: 1.2rem;
-  color: var(--azul-primario);
-  margin-bottom: 8px;
-  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--primario);
+  margin-bottom: 4px;
+  font-weight: 800;
 }
 
+/* Subtítulo */
 .tarjeta h2 {
-  font-size: 1rem;
-  color: var(--azul-secundario);
-  margin-bottom: 10px;
-  font-weight: 500;
-}
-
-.tarjeta p {
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   color: var(--gris-oscuro);
-  line-height: 1.4;
-}
-
-/* Input de filtro */
-.inputFiltro {
-  width: 100%;
-  max-width: 400px;
-  padding: 12px 15px;
-  border: 2px solid var(--azul-primario);
-  border-radius: 8px;
-  font-size: 1rem;
-  outline: none;
-  transition: var(--transicion);
-  background: var(--blanco);
-}
-
-.inputFiltro:focus {
-  border-color: var(--azul-hover);
-  box-shadow: 0 0 5px rgba(68, 99, 201, 0.5);
-}
-
-.inputFiltro::placeholder {
-  color: var(--gris-medio);
-  font-style: italic;
-}
-
-/* ======== MODAL MEJORADO ======== */
-
-/* Overlay del modal */
-.modalOverlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  backdrop-filter: blur(4px);
-}
-
-/* Contenido del modal - Estructura similar a tabla */
-.modalContent {
-  background: var(--blanco);
-  border-radius: var(--borde-redondeado);
-  width: 90vw;
-  max-width: 800px;
-  height: 85vh;
-  box-shadow: var(--sombra-intensa);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-/* Cabecera del modal - Similar a cabecera de tabla */
-.modalHeader {
-  position: sticky;
-  top: 0;
-  background: var(--blanco);
-  padding: 20px 25px;
-  border-bottom: 2px solid var(--gris-medio);
-  z-index: 10;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.modalHeader h2 {
-  color: var(--azul-secundario);
-  font-size: 1.8rem;
+  margin-bottom: 12px;
   font-weight: 600;
-  margin: 0;
-  text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-/* Cuerpo del modal - Con scroll controlado */
+/* Descripción */
+.tarjeta p {
+  font-size: 0.92rem;
+  color: var(--gris-oscuro);
+  line-height: 1.45;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  min-height: 3rem;
+}
+
+/* ======== INPUT FILTRO ======== */
+.inputFiltro {
+  width: 100%;
+  max-width: 450px;
+  padding: 12px 15px;
+
+  border: 2px solid var(--primario);
+  border-radius: 10px;
+
+  font-size: 1rem;
+  outline: none;
+  transition: var(--transicion);
+
+  background: var(--blanco);
+  box-shadow: var(--sombra-suave);
+}
+
+.inputFiltro:focus {
+  border-color: var(--secundario);
+  box-shadow: 0 0 8px rgba(59,130,246,0.35);
+}
+
+.inputFiltro::placeholder {
+  color: rgba(0,0,0,0.25);
+  font-style: italic;
+}
+
+/* ======== MODAL ======== */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 15, 20, 0.8);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 999;
+  backdrop-filter: blur(6px);
+}
+
+.modalContent {
+  width: 90vw;
+  max-width: 900px;
+  height: 85vh;
+
+  border-radius: 15px;
+  background: var(--color-fondo);
+
+  box-shadow: var(--sombra-intensa);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ======== HEADER DEL MODAL ======== */
+.modalHeader {
+  position: sticky;
+  top: 0;
+  padding: 18px 25px;
+  z-index: 10;
+  background: var(--primario);
+  color: var(--blanco);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.modalHeader h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ======== CUERPO DEL MODAL ======== */
 .modalBody {
   flex: 1;
   overflow-y: auto;
-  overflow-x: hidden;
   padding: 25px;
-  background: var(--gris-claro);
-}
-
-/* Contenedor de letra con diseño tipo tabla */
-.letraContainer {
-  background: var(--blanco);
-  border-radius: 10px;
-  box-shadow: var(--sombra-suave);
-  padding: 30px;
-  min-height: 300px;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+}
+
+.letraContainer {
+  border-radius: 15px;
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+
+  background: #F8FAFC;
+  box-shadow: var(--sombra-suave);
+
+  min-height: 300px;
+
   text-align: center;
-  border: 1px solid rgba(138, 141, 148, 0.2);
-  transition: var(--transicion);
+  overflow-y: auto;
 }
 
-.letraContainer:hover {
-  box-shadow: var(--sombra-media);
-}
-
-/* Estilos para el texto de la letra */
 .letraTexto {
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 500;
   line-height: 1.6;
-  color: var(--gris-oscuro);
-  width: 100%;
+  white-space: pre-wrap;
+  color: #1E293B;
 }
 
-/* Pie del modal - Controles fijos */
+/* ======== FOOTER DEL MODAL ======== */
 .modalFooter {
   position: sticky;
   bottom: 0;
+  padding: 18px 25px;
   background: var(--blanco);
-  padding: 20px 25px;
-  border-top: 2px solid var(--gris-medio);
-  z-index: 10;
-  box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
 }
 
-/* Controles de navegación */
+/* ======== NAVEGACIÓN ======== */
 .controlesNavegacion {
   display: flex;
   justify-content: space-between;
@@ -194,136 +214,103 @@
   gap: 15px;
 }
 
-/* Grupo de botones */
 .botonesGrupo {
   display: flex;
   gap: 15px;
 }
 
-/* Contador de progreso */
+/* Contador */
 .contadorProgreso {
-  color: var(--azul-secundario);
-  font-weight: 600;
-  font-size: 1rem;
-  background: rgba(42, 58, 113, 0.1);
-  padding: 8px 15px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: rgba(124, 58, 237, 0.15);
+  padding: 10px 18px;
   border-radius: 20px;
+  min-width: 80px;
+  text-align: center;
+  color: var(--acento);
 }
 
-/* ======== BOTONES MEJORADOS ======== */
-
-/* Botón base */
+/* ======== BOTONES ======== */
 .btn {
-  padding: 10px 20px;
-  border-radius: 8px;
+  padding: 12px 22px;
+  border-radius: 10px;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  transition: var(--transicion);
   border: none;
+
   display: flex;
   align-items: center;
   gap: 8px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  transition: var(--transicion);
 }
 
-/* Botón primario (Navegación) */
+/* Botón principal */
 .btnPrimary {
-  background-color: rgba(40, 93, 167, 0.1);
-  color: var(--azul-secundario);
-  border: 1px solid rgba(40, 93, 167, 0.3);
+  background-color: var(--secundario);
+  color: var(--blanco);
+  box-shadow: 0px 4px 10px rgba(59,130,246,0.35);
 }
 
 .btnPrimary:hover {
-  background-color: rgba(40, 93, 167, 0.3);
-  transform: translateY(-1px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  background-color: var(--primario);
+  transform: translateY(-3px);
 }
 
+/* Disabled */
 .btnPrimary:disabled {
-  background-color: rgba(138, 141, 148, 0.2);
-  color: var(--gris-medio);
+  background-color: var(--gris-medio);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
 }
 
-/* Botón cerrar (similar a eliminar) */
+/* Botón cerrar */
 .modalCloseButton {
-  background-color: rgba(9, 35, 53, 0.1);
-  color: #092335;
-  border: 1px solid transparent;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transicion);
+  color: var(--blanco);
 }
 
-.modalCloseButton:hover {
-  background-color: rgba(7, 30, 47, 0.8);
-  color: #d7e7f5;
-  transform: translateY(-1px);
-  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-}
-
-/* ======== ESTILOS ESPECÍFICOS PARA VERSO Y CORO ======== */
-
-.versoBox {
-  font-size: 1.4rem;
-  color: var(--gris-oscuro);
-  font-weight: 500;
-  line-height: 1.6;
-  padding: 15px;
-  border-radius: 8px;
-  background: rgba(249, 249, 251, 0.7);
-}
-
-.coroBox {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--azul-secundario);
-  margin: 15px 0;
-  padding: 15px;
-  border-radius: 8px;
-  background: rgba(238, 242, 255, 0.7);
-  border-left: 4px solid var(--azul-secundario);
-}
-
-/* ======== RESPONSIVE ======== */
-
-@media (max-width: 768px) {
-  .modalContent {
-    width: 95vw;
-    height: 90vh;
-  }
-  
-  .modalHeader h2 {
-    font-size: 1.4rem;
-  }
-  
-  .letraTexto {
-    font-size: 1.2rem;
-  }
-  
-  .controlesNavegacion {
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .botonesGrupo {
-    width: 100%;
-    justify-content: center;
-  }
-  
-  .contadorProgreso {
-    order: -1;
-  }
-}
-
-/* Estado vacío */
+/* ======== EMPTY STATE ======== */
 .emptyState {
   text-align: center;
   padding: 40px 20px;
-  color: var(--gris-medio);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--gris-oscuro);
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 992px) {
+  .letraTexto { font-size: 2rem; }
+  .modalContent { width: 95vw; height: 90vh; }
+  .modalHeader h2 { font-size: 1.5rem; }
+  .controlesNavegacion {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .botonesGrupo {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .contadorProgreso {
+    order: -1;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contenedor {
+    grid-template-columns: 1fr 1fr;
+  }
+  .letraTexto { font-size: 1.3rem; }
+  .btn {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+  .botonesGrupo { gap: 5px; }
 }

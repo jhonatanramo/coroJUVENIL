@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import {Barra} from '../../coponentes/BarraMenu/Barra';
 import {Titulo} from '../../coponentes/Cabesera/Titulo';
 import { Formulario } from '../../coponentes/Formulario/Formulario';
-import MapaUbicacion from '../../coponentes/Maps/MapaUbicacion';
 
 
 

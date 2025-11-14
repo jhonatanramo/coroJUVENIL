@@ -4,7 +4,7 @@ import { Cabeza } from './Cabeza';
 import { Cuerpo } from './Cuerpo';
 import { Pie } from './Pie';
 
-export function Barra({ children }) {
+export function Barra({ children,id }) {
   const [barraVisible, setBarraVisible] = useState(true);
 
   const toggleBarra = () => setBarraVisible(!barraVisible);

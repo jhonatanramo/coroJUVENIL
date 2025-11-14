@@ -1,4 +1,19 @@
-/* Contenedor para scroll horizontal y vertical */
+:root {
+  /* Paleta de colores principal */
+  --primario: #C44569;
+  --secundario: #A53860;
+  --acento: #88304E;
+  --negro: #1A1A2E;
+  --blanco: #F8F9FA;
+  --gris-claro: #6D214F;
+  --gris-medio: #8B5F8C;
+  
+  /* Colores adicionales para la paleta */
+  --primario-oscuro: #6F1E51;
+  --secundario-oscuro: #4A235A;
+  --acento-claro: #3C1E4E;
+}
+
 .container {
   width: 100%;
   max-height: 500px; /* Ajusta según necesites */
@@ -23,7 +38,7 @@
   position: sticky;
   top: 0;
   background: #ffffff;
-  color: #1a349b;
+  color: var(--primario-oscuro);
   padding: 12px;
   text-transform: uppercase;
   font-weight: 600;
