@@ -1,3 +1,4 @@
+/* 🎨 Paleta principal */
 :root {
     --baby-blue: #96d1f1;
     --delft-blue: #2a3a71;
@@ -5,331 +6,296 @@
     --ultra-violet: #55588c;
     --periwinkle: #bdbce2;
     --glaucous: #6587bf;
-    --gradient-main: linear-gradient(
-      135deg,
-      var(--baby-blue),
-      var(--delft-blue),
-      var(--midnight-blue)
-    );
+    --highlight: #ff6b6b;
+    --gradient-main: linear-gradient(135deg, var(--baby-blue), var(--delft-blue), var(--midnight-blue));
   }
   
-  /* 🔤 Reset general */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  /* 🌅 Fondo general */
-  .Fondo {
-    background-image: var(--gradient-main), url("../imagenes/descarga.jpeg");
-    background-blend-mode: overlay;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* 🔲 Capa oscura de superposición */
-  .overlay {
-    background: rgba(0, 0, 0, 0.45);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* 🧩 Contenedor central */
-  .sub {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 40px 30px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-    max-width: 450px;
-    width: 90%;
-    animation: aparecer 0.8s ease-in-out;
-  }
-  
-
-/* 📄 Contenido principal */
-.sub h1 {
-    font-size: 1.8rem;
-    color: var(--midnight-blue);
-    margin-bottom: 5px;
-}
-
-.sub hr {
-    margin: 15px 0;
-    border: none;
-    height: 2px;
-    background: var(--gradient-main);
-    border-radius: 2px;
-}
-
-/* 📅 Calendario Header */
-.calendarioHeader {
+  /* ===========================
+     📅 ENCABEZADO DEL CALENDARIO
+     =========================== */
+  .calendarioHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
-}
-
-.navButton {
-    background: var(--delft-blue-2);
-    color: white;
+    animation: aparecer 0.6s ease forwards;
+  }
+  
+  .navButton {
+    background: var(--ultra-violet);
+    color: #fff;
     border: none;
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     font-size: 1.2rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.navButton:hover {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+  }
+  
+  .navButton:hover {
     background: var(--midnight-blue);
-    transform: scale(1.1);
-}
-
-/* Controls */
-.controlContainer {
+    transform: scale(1.15) rotate(8deg);
+  }
+  
+  /* ===========================
+     🕹️ CONTROLES
+     =========================== */
+  .controlContainer {
     margin-bottom: 10px;
-}
-
-.hoyButton {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .hoyButton {
     background: var(--baby-blue);
-    color: white;
+    color: #fff;
     border: none;
-    border-radius: 20px;
-    padding: 8px 16px;
-    font-size: 0.9rem;
+    border-radius: 25px;
+    padding: 8px 18px;
+    font-size: 0.95rem;
     cursor: pointer;
+    font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.hoyButton:hover {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .hoyButton:hover {
     background: var(--ultra-violet);
-    transform: translateY(-2px);
-}
-
-/* 📅 Calendario Grid */
-.calendario {
+    transform: translateY(-3px);
+  }
+  
+  /* ===========================
+     🗓️ CUERPO DEL CALENDARIO
+     =========================== */
+  .calendario {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 8px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-}
-
-.dia {
+    gap: 3px;
+    margin: 10px 0 20px 0;
+    animation: aparecer 0.8s ease forwards;
+  }
+  
+  .dia {
     font-weight: 700;
-    color: var(--midnight-blue);
     text-align: center;
     padding: 10px 0;
-    background: var(--periwinkle);
+    color: var(--ultra-violet);
+    background: rgba(189, 188, 226, 0.2);
     border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-
-.fecha {
+  }
+  
+  .fecha {
     position: relative;
     text-align: center;
-    padding: 12px 0;
-    background: rgba(255,255,255,0.8);
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
     font-weight: 500;
-}
-
-.fecha:hover {
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.25s ease;
+  }
+  
+  .fecha:hover {
     background: var(--baby-blue);
-    color: white;
-    transform: scale(1.05);
-}
-
-/* Date States */
-.fecha.hoy {
+    color: #fff;
+    transform: scale(1.07);
+  }
+  
+  /* ===========================
+     🟢 ESTADOS DE FECHA
+     =========================== */
+  .fecha.hoy {
     background: var(--glaucous);
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.fecha.seleccionado {
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  }
+  
+  .fecha.seleccionado {
     background: var(--delft-blue);
-    color: white;
-    font-weight: bold;
-    transform: scale(1.05);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.fecha.conEvento {
-    border-bottom: 3px solid var(--ultra-violet);
-}
-
-.fecha.vacio {
+    color: #fff;
+    transform: scale(1.1);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.35);
+  }
+  
+  .fecha.conEvento {
+    border-bottom: 3px solid var(--highlight);
+    background: linear-gradient(135deg, #ff9de4b6, #ffd3eb);
+    color: var(--midnight-blue);
+    font-weight: 600;
+  }
+  
+  .fecha.vacio {
     background: transparent;
     box-shadow: none;
     cursor: default;
-}
-
-.fecha.vacio:hover {
+  }
+  
+  .fecha.vacio:hover {
     background: transparent;
     transform: none;
-    cursor: default;
-}
-
-/* Event Marker */
-.marcadorEvento {
+  }
+  
+  /* 🔵 Indicador de evento */
+  .marcadorEvento {
     position: absolute;
-    bottom: 4px;
+    bottom: 5px;
     left: 50%;
     transform: translateX(-50%);
-    width: 6px;
-    height: 6px;
-    background: var(--ultra-violet);
-    border-radius: 50%;
-}
-
-/* Selected Date Info */
-.infoSeleccionada {
+    font-size: 0.8rem;
+  }
+  
+  /* ===========================
+     📖 INFORMACIÓN SELECCIONADA
+     =========================== */
+  .infoSeleccionada {
     background: rgba(189, 188, 226, 0.2);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 15px;
     margin: 15px 0;
-    text-align: left;
-}
-
-.infoSeleccionada h3 {
+    animation: aparecer 0.5s ease forwards;
+  }
+  
+  .infoSeleccionada h3 {
     color: var(--midnight-blue);
     margin-bottom: 8px;
-    font-size: 1.1rem;
-}
-
-.infoSeleccionada p {
+    font-size: 1.15rem;
+  }
+  
+  .infoSeleccionada p {
     color: var(--ultra-violet);
     margin-bottom: 10px;
-}
-
-.listaEventos h4 {
+    font-size: 0.95rem;
+  }
+  
+  /* ===========================
+     📋 LISTA DE EVENTOS
+     =========================== */
+  .listaEventos h4 {
     color: var(--delft-blue);
     margin: 10px 0 5px 0;
     font-size: 1rem;
-}
-
-.listaEventos ul {
-    list-style-type: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .listaEventos ul {
+    list-style: none;
     padding-left: 0;
-}
-
-.listaEventos li {
-    background: rgba(255, 255, 255, 0.7);
-    margin: 5px 0;
+  }
+  
+  .listaEventos li {
+    background: linear-gradient(135deg, #ff9de4, #a6c1ee);
+    margin: 6px 0;
     padding: 8px 12px;
-    border-radius: 6px;
-    border-left: 3px solid var(--ultra-violet);
-}
-
-.sinEventos {
+    border-radius: 8px;
+    border-left: 4px solid var(--ultra-violet);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: fadeIn 0.4s ease;
+    color: #fff;
+    font-weight: 500;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .sinEventos {
     font-style: italic;
     color: var(--ultra-violet);
     opacity: 0.7;
-}
-
-/* Legend */
-.leyenda {
+  }
+  
+  /* ===========================
+     🎨 LEYENDA
+     =========================== */
+  .leyenda {
     display: flex;
     justify-content: center;
     gap: 15px;
-    margin-top: 20px;
+    margin-top: 25px;
     flex-wrap: wrap;
-}
-
-.itemLeyenda {
+  }
+  
+  .itemLeyenda {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
     font-size: 0.8rem;
-}
-
-.marcadorLeyenda {
-    display: inline-block;
+    color: var(--ultra-violet);
+  }
+  
+  .marcadorLeyenda {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-}
-
-.marcadorLeyenda.hoy {
+  }
+  
+  .marcadorLeyenda.hoy {
     background: var(--glaucous);
-}
-
-.marcadorLeyenda.seleccionado {
+  }
+  
+  .marcadorLeyenda.seleccionado {
     background: var(--delft-blue);
-}
-
-.marcadorLeyenda.conEvento {
-    background: var(--ultra-violet);
-}
-
-/* 📜 Animación de aparición */
-@keyframes aparecer {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* 📱 Responsivo */
-@media (max-width: 480px) {
-    .Fondo {
-        padding: 10px;
+  }
+  
+  .marcadorLeyenda.conEvento {
+    background: var(--highlight);
+  }
+  
+  /* ===========================
+     🪄 ANIMACIONES Y RESPONSIVO
+     =========================== */
+  @keyframes aparecer {
+    from {
+      transform: translateY(25px);
+      opacity: 0;
     }
-    
-    .sub {
-        padding: 20px 15px;
+    to {
+      transform: translateY(0);
+      opacity: 1;
     }
-
-    .sub h1 {
-        font-size: 1.5rem;
-    }
-
-    .calendarioHeader h1 {
-        font-size: 1.3rem;
-    }
-
+  }
+  
+  @media (max-width: 480px) {
     .calendario {
-        gap: 5px;
+      gap: 4px;
     }
-
-    .dia, .fecha {
-        padding: 8px 0;
-        font-size: 0.8rem;
-    }
-    
+  
     .navButton {
-        width: 35px;
-        height: 35px;
-        font-size: 1rem;
+      width: 35px;
+      height: 35px;
+      font-size: 1rem;
     }
-    
-    .leyenda {
-        gap: 10px;
+  
+    .calendarioHeader h1 {
+      font-size: 1.25rem;
     }
-    
+  
+    .hoyButton {
+      font-size: 0.85rem;
+      padding: 6px 14px;
+    }
+  
     .itemLeyenda {
-        font-size: 0.7rem;
+      font-size: 0.7rem;
     }
-}
+  }
+  

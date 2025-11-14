@@ -1,0 +1,329 @@
+/* ======== VARIABLES Y ESTILOS GENERALES ======== */
+:root {
+  --azul-primario: #2a3a71;
+  --azul-secundario: #1a349b;
+  --azul-hover: #4463c9;
+  --gris-claro: #f9f9fb;
+  --gris-medio: #8a8d94;
+  --gris-oscuro: #333333;
+  --blanco: #ffffff;
+  --sombra-suave: 0 3px 6px rgba(0,0,0,0.1);
+  --sombra-media: 0 4px 12px rgba(0,0,0,0.15);
+  --sombra-intensa: 0 8px 20px rgba(0,0,0,0.2);
+  --borde-redondeado: 12px;
+  --transicion: all 0.25s ease-in-out;
+}
+
+/* Contenedor principal de las tarjetas */
+.contenedor {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  justify-items: center;
+}
+
+/* Cada tarjeta */
+.tarjeta {
+  background: var(--blanco);
+  border-radius: var(--borde-redondeado);
+  box-shadow: var(--sombra-suave);
+  padding: 20px;
+  width: 100%;
+  max-width: 300px;
+  transition: var(--transicion);
+  text-align: center;
+  border: 1px solid rgba(42, 58, 113, 0.1);
+  cursor: pointer;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sombra-intensa);
+  border-color: var(--azul-primario);
+}
+
+.tarjeta h1 {
+  font-size: 1.2rem;
+  color: var(--azul-primario);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.tarjeta h2 {
+  font-size: 1rem;
+  color: var(--azul-secundario);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.tarjeta p {
+  font-size: 0.9rem;
+  color: var(--gris-oscuro);
+  line-height: 1.4;
+}
+
+/* Input de filtro */
+.inputFiltro {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 15px;
+  border: 2px solid var(--azul-primario);
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: var(--transicion);
+  background: var(--blanco);
+}
+
+.inputFiltro:focus {
+  border-color: var(--azul-hover);
+  box-shadow: 0 0 5px rgba(68, 99, 201, 0.5);
+}
+
+.inputFiltro::placeholder {
+  color: var(--gris-medio);
+  font-style: italic;
+}
+
+/* ======== MODAL MEJORADO ======== */
+
+/* Overlay del modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  backdrop-filter: blur(4px);
+}
+
+/* Contenido del modal - Estructura similar a tabla */
+.modalContent {
+  background: var(--blanco);
+  border-radius: var(--borde-redondeado);
+  width: 90vw;
+  max-width: 800px;
+  height: 85vh;
+  box-shadow: var(--sombra-intensa);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Cabecera del modal - Similar a cabecera de tabla */
+.modalHeader {
+  position: sticky;
+  top: 0;
+  background: var(--blanco);
+  padding: 20px 25px;
+  border-bottom: 2px solid var(--gris-medio);
+  z-index: 10;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.modalHeader h2 {
+  color: var(--azul-secundario);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Cuerpo del modal - Con scroll controlado */
+.modalBody {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 25px;
+  background: var(--gris-claro);
+}
+
+/* Contenedor de letra con diseño tipo tabla */
+.letraContainer {
+  background: var(--blanco);
+  border-radius: 10px;
+  box-shadow: var(--sombra-suave);
+  padding: 30px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid rgba(138, 141, 148, 0.2);
+  transition: var(--transicion);
+}
+
+.letraContainer:hover {
+  box-shadow: var(--sombra-media);
+}
+
+/* Estilos para el texto de la letra */
+.letraTexto {
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--gris-oscuro);
+  width: 100%;
+}
+
+/* Pie del modal - Controles fijos */
+.modalFooter {
+  position: sticky;
+  bottom: 0;
+  background: var(--blanco);
+  padding: 20px 25px;
+  border-top: 2px solid var(--gris-medio);
+  z-index: 10;
+  box-shadow: 0 -2px 4px rgba(0,0,0,0.05);
+}
+
+/* Controles de navegación */
+.controlesNavegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Grupo de botones */
+.botonesGrupo {
+  display: flex;
+  gap: 15px;
+}
+
+/* Contador de progreso */
+.contadorProgreso {
+  color: var(--azul-secundario);
+  font-weight: 600;
+  font-size: 1rem;
+  background: rgba(42, 58, 113, 0.1);
+  padding: 8px 15px;
+  border-radius: 20px;
+}
+
+/* ======== BOTONES MEJORADOS ======== */
+
+/* Botón base */
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transicion);
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Botón primario (Navegación) */
+.btnPrimary {
+  background-color: rgba(40, 93, 167, 0.1);
+  color: var(--azul-secundario);
+  border: 1px solid rgba(40, 93, 167, 0.3);
+}
+
+.btnPrimary:hover {
+  background-color: rgba(40, 93, 167, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.btnPrimary:disabled {
+  background-color: rgba(138, 141, 148, 0.2);
+  color: var(--gris-medio);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Botón cerrar (similar a eliminar) */
+.modalCloseButton {
+  background-color: rgba(9, 35, 53, 0.1);
+  color: #092335;
+  border: 1px solid transparent;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transicion);
+}
+
+.modalCloseButton:hover {
+  background-color: rgba(7, 30, 47, 0.8);
+  color: #d7e7f5;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+/* ======== ESTILOS ESPECÍFICOS PARA VERSO Y CORO ======== */
+
+.versoBox {
+  font-size: 1.4rem;
+  color: var(--gris-oscuro);
+  font-weight: 500;
+  line-height: 1.6;
+  padding: 15px;
+  border-radius: 8px;
+  background: rgba(249, 249, 251, 0.7);
+}
+
+.coroBox {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--azul-secundario);
+  margin: 15px 0;
+  padding: 15px;
+  border-radius: 8px;
+  background: rgba(238, 242, 255, 0.7);
+  border-left: 4px solid var(--azul-secundario);
+}
+
+/* ======== RESPONSIVE ======== */
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95vw;
+    height: 90vh;
+  }
+  
+  .modalHeader h2 {
+    font-size: 1.4rem;
+  }
+  
+  .letraTexto {
+    font-size: 1.2rem;
+  }
+  
+  .controlesNavegacion {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .botonesGrupo {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .contadorProgreso {
+    order: -1;
+  }
+}
+
+/* Estado vacío */
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--gris-medio);
+  font-size: 1.1rem;
+}

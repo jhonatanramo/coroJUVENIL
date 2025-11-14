@@ -44,6 +44,7 @@
     transform: translate(-50%, -50%);
     border: none;
     border-radius: 16px;
+    position: fixed;
     padding: 24px;
     width: 320px;
     text-align: center;
@@ -51,6 +52,7 @@
     color: var(--midnight-blue);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     animation: fadeIn 0.3s ease;
+    z-index: 10000;
   }
   
   /* Fondo oscurecido del diálogo */

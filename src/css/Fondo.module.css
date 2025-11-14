@@ -1,83 +1,80 @@
 :root {
-    --baby-blue: #96D1F1;
-    --delft-blue: #2A3A71;
-    --midnight-blue: #26266E;
-    --ultra-violet: #55588C;
-    --periwinkle: #BDBCE2;
-    --glaucous: #6587BF;
-    --delft-blue-2: #3C4371;
-  
-    --gradient-main: linear-gradient(135deg, var(--baby-blue), var(--delft-blue), var(--midnight-blue));
-  }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-  }
-  
-  /* 🌅 Fondo general */
-  .Fondo {
-    background-image: var(--gradient-main), url("../imagenes/descarga.jpeg");
-    background-blend-mode: overlay;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* 🔲 Capa oscura */
-  .overlay {
-    background: rgba(0, 0, 0, 0.45);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* 🧩 Contenedor central */
+  --azul-claro: #96d1f1;
+  --azul-oscuro: #1b2a49;
+  --violeta: #55588c;
+  --blanco: #ffffff;
+}
+
+/* Fondo general */
+.fondo {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-image: var(--gradient-main), url("../imagenes/descarga.jpeg");
+  background-blend-mode: overlay;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow-x: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Capa semitransparente para mejorar contraste */
+.overlay {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 17, 31, 0.656);
+  padding-top: 70px; /* deja espacio para la barra superior */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+/* Zona del contenido dinámico (children) */
+.sub {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  position: relative;
+  max-width: 98vw;
+  min-height: 70vh;
+  top: 100px;
+  margin-bottom: 2rem;
+  transition: all 0.3s ease;
+}
+
+.sub:hover {
+  transform: scale(1.01);
+}
+
+/* Transición suave en todo el diseño */
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
   .sub {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 40px 50px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-    max-width: 420px;
-    width: 90%;
-  
-    /* Limitar altura y permitir scroll */
-    max-height: 80vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-  
-    /* Estilo del scroll: oculto pero funcional */
-    scrollbar-width: thin;       /* Firefox */
-    scrollbar-color: rgba(0,0,0,0.3) transparent; /* Firefox */
+    width: 95%;
+    padding: 1rem;
   }
-  
-  /* Para Chrome, Edge y Safari */
-  .sub::-webkit-scrollbar {
-    width: 6px;                  /* grosor */
+
+  .overlay {
+    padding-top: 20px;
   }
-  
-  .sub::-webkit-scrollbar-track {
-    background: transparent;      /* fondo del track */
+}
+
+@media (max-width: 480px) {
+  .sub {
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
   }
-  
-  .sub::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.3);  /* color del scroll */
-    border-radius: 10px;
-    transition: background 0.3s;
-  }
-  
-  .sub::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(0,0,0,0.5);  /* más visible al pasar mouse */
-  }
-  
-  
+}

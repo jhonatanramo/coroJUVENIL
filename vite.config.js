@@ -10,7 +10,7 @@ const env = loadEnv(mode, process.cwd(), '');
   return {
     server: {
       port: 3000,
-      strictPort: true,
+      strictPort: false,
       proxy: {
         '/api': {
           target: env.VITE_API_BASE, // usa la variable de entorno

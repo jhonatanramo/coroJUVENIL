@@ -1,7 +1,7 @@
 import Css from "../css/Index.module.css";
 import { useEffect, useState } from "react";
 import { Fondo } from "../coponentes/Fondo";
-
+import {Barra} from '../coponentes/BarraMenu/Barra';
 export function Index() {
   const [usuario, setUsuario] = useState({});
 
@@ -37,7 +37,7 @@ export function Index() {
   }, []);
 
   return (
-    <Fondo>
+    <Barra>
       <div className={Css.contenido}>
         <h1>Bienvenido {usuario.nombre ? usuario.nombre : "Usuario"}</h1>
         <p>Esta es la página de inicio.</p>
@@ -45,6 +45,6 @@ export function Index() {
         {/* ✅ En React se usa onClick, no onclick */}
         <button onClick={activarPantallaCompleta}>Pantalla completa</button>
       </div>
-    </Fondo>
+    </Barra>
   );
 }

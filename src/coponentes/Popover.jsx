@@ -15,7 +15,6 @@ export function Popover({ titulo, children, Registrarse }) {
   useEffect(() => {
     const dialog = dialogRef.current;
 
-    // Función para cerrar al hacer clic fuera del diálogo
     const handleOutsideClick = (event) => {
       if (dialog.open) {
         const rect = dialog.getBoundingClientRect();
@@ -29,12 +28,8 @@ export function Popover({ titulo, children, Registrarse }) {
       }
     };
 
-    // Escucha clicks globales
     window.addEventListener("click", handleOutsideClick);
-
-    return () => {
-      window.removeEventListener("click", handleOutsideClick);
-    };
+    return () => window.removeEventListener("click", handleOutsideClick);
   }, []);
 
   return (
@@ -48,8 +43,9 @@ export function Popover({ titulo, children, Registrarse }) {
         <hr />
         <div className={Css.contenido}>{children}</div>
         <hr />
-        <br />
-        
+        <button className={Css.btnCerrar} onClick={cerrarDialog}>
+          Cerrar
+        </button>
       </dialog>
     </div>
   );

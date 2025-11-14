@@ -1,0 +1,348 @@
+/* Variables CSS */
+:root {
+    --primary-color: #5a8dee;
+    --primary-hover: #3366cc;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+    --background-dark: #111;
+    --card-dark: #1e1e1e;
+    --card-light: #202020;
+    --text-primary: #ffffff;
+    --text-secondary: #d1d5db;
+    --border-radius: 12px;
+    --shadow-light: 0 4px 15px rgba(255, 255, 255, 0.1);
+    --shadow-dark: 0 0 8px rgba(0, 0, 0, 0.3);
+    --transition: all 0.3s ease;
+  }
+  
+  /* Contenedor principal */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .title {
+    color: var(--text-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+  }
+  
+  /* Formulario */
+  .form {
+    background: var(--background-dark);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+  }
+  
+  .formGrid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* Sección de Foto */
+  .photoSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .photoContainer {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .photoContainer:hover {
+    transform: scale(1.05);
+  }
+  
+  .previewImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    border-radius: 50%;
+    transition: var(--transition);
+  }
+  
+  .photoOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: var(--transition);
+  }
+  
+  .photoContainer:hover .photoOverlay {
+    opacity: 1;
+  }
+  
+  .photoText {
+    color: white;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .fileLabel {
+    display: block;
+    cursor: pointer;
+  }
+  
+  .fileButton {
+    display: inline-block;
+    background: var(--primary-color);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: var(--transition);
+    text-align: center;
+  }
+  
+  .fileButton:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+  }
+  
+  .fileInput {
+    display: none;
+  }
+  
+  /* Información Personal */
+  .personalInfo {
+    background: var(--card-dark);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+  }
+  
+  .sectionTitle {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+  }
+  
+  .inputRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .inputGroup {
+    margin-bottom: 1rem;
+  }
+  
+  .label {
+    display: block;
+    color: var(--text-primary);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .input, .select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #374151;
+    border-radius: 8px;
+    background: #1f2937;
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: var(--transition);
+  }
+  
+  .input:focus, .select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(90, 141, 238, 0.1);
+  }
+  
+  .input:hover, .select:hover {
+    border-color: #4b5563;
+  }
+  
+  .inputError {
+    border-color: var(--error-color) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+  }
+  
+  /* Mensajes de error */
+  .errorText {
+    display: block;
+    color: var(--error-color);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+  }
+  
+  /* Acciones */
+  .actions {
+    border-top: 1px solid #374151;
+    padding-top: 2rem;
+  }
+  
+  .message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+  }
+  
+  .error {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .backButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    transition: var(--transition);
+    font-weight: 600;
+  }
+  
+  .backButton:hover {
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .submitButton {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    min-width: 140px;
+    justify-content: center;
+  }
+  
+  .submitButton:hover:not(:disabled) {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(90, 141, 238, 0.3);
+  }
+  
+  .submitButton:disabled {
+    background: #6b7280;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  /* Spinner de carga */
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+    
+    .formGrid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .inputRow {
+      grid-template-columns: 1fr;
+    }
+    
+    .buttons {
+      flex-direction: column;
+    }
+    
+    .backButton, .submitButton {
+      width: 100%;
+      text-align: center;
+    }
+    
+    .title {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .form {
+      padding: 1.5rem;
+    }
+    
+    .personalInfo {
+      padding: 1.5rem;
+    }
+    
+    .photoContainer {
+      width: 120px;
+      height: 120px;
+    }
+  }
