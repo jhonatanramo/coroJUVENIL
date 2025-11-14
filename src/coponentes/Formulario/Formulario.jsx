@@ -40,7 +40,7 @@ export function Formulario({ data }) {
   useEffect(() => {
     data.Recibir.forEach(async (sel) => {
       try {
-        const response = await fetch(sel.Ruta);
+        const response = await fetch('https://backcorojuvenil.onrender.com/'+sel.Ruta);
         const json = await response.json();
         setOptions((prev) => ({ ...prev, [sel.name]: json }));
       } catch (error) {
@@ -140,7 +140,7 @@ export function Formulario({ data }) {
         }
       }
 
-      const response = await fetch(data.Backendt, {
+      const response = await fetch('https://backcorojuvenil.onrender.com/'+data.Backendt, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)

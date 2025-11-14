@@ -36,7 +36,7 @@ export function Tabla({ data }) {
     setDatos((prev) => prev.filter((d) => d.id !== id));
   
     try {
-      const res = await fetch(data.eliminar, {
+      const res = await fetch('https://backcorojuvenil.onrender.com/'+data.eliminar, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id }) // <- enviamos JSON con el ID

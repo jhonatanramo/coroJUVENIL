@@ -23,7 +23,7 @@ export function Calendario() {
   useEffect(() => {
     const fetchCumpleanios = async () => {
       try {
-        const res = await fetch("/api/usuarios/");
+        const res = await fetch("https://backcorojuvenil.onrender.com/api/usuarios/");
         const data = await res.json();
 
         const eventos = data.map(u => {

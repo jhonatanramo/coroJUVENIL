@@ -25,7 +25,7 @@ export function Buscar() {
   useEffect(() => {
     const GetTitulo = async () => {
       try {
-        const response = await fetch("api/repertorios/");
+        const response = await fetch("https://backcorojuvenil.onrender.com/api/repertorios/");
         const data = await response.json();
         setTitulo(data);
       } catch (error) {
@@ -45,7 +45,7 @@ export function Buscar() {
 
   const Parrafos = async (nro, coro) => {
     try {
-      const response = await fetch(`api/parrafos/${nro}/`);
+      const response = await fetch(`https://backcorojuvenil.onrender.com/api/parrafos/${nro}/`);
       const data = await response.json();
       setParrafo(data);
       mezclar(data, coro);

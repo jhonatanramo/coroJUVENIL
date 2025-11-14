@@ -21,7 +21,7 @@ export function Index() {
 
   const session = async () => {
     try {
-      const response = await fetch("/api/session/", {
+      const response = await fetch("https://backcorojuvenil.onrender.com/api/session/", {
         credentials: "include", // incluye cookies o sesión activa
       });
       if (!response.ok) throw new Error("Error al obtener la sesión");
