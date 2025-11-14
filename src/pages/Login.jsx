@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Css from "./css/Login.module.css";
 import { Formulario } from "../coponentes/Formulario/Formulario";
 import  Server  from "../api"; // ✔ tu instancia Axios
+import Img from '../../public/imagenes/pinguino.png';
 
-const Img = "../../public/pinguino.png";
 
 // Configuración del formulario
 const data = {
